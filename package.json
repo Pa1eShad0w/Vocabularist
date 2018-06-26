@@ -1,0 +1,19 @@
+{
+  "name": "vocabularist_svr",
+  "version": "1.0.0",
+  "description": "Server side of the Vocabularist website",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pa1eShad0w",
+  "license": "ISC",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.10",
+    "path": "^0.12.7"
+  }
+}
