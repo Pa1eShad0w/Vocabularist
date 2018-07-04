@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>错词本</h1>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-condensed">
+            <tr>
+                <th>单词</th>
+                <th>单词本</th>
+                <th>释义</th>
+            </tr>
+            {% for revision in revisions %} {% for word in revision.words %}
+            <tr>
+                <td>{{ word.word.toLowerCase() }}</td>
+                <td>{{ revision.wordbook }}</td>
+                <td>{{ word.meaning }}</td>
+            </tr>
+            {% endfor %} {% endfor %}
+        </table>
+    </div>
+    <hr />
+</div>
+{% endblock %}

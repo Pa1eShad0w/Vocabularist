@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>单词本</h1>
+    </div>
+    <h2>公共单词本</h2>
+    <div class="row">
+        {% for wordbook in defaultWordbooks %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <!-- <img src="..." alt="..."> -->
+                <div class="caption">
+                    <!-- <div>
+                        <input type="checkbox" id="{{ wordbook.name }}" class="fav_checkbox" />
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <i class="glyphicon glyphicon-star"></i> -->
+                    <h3>{{ wordbook.name }}</h3>
+                    <!-- </div> -->
+                    <p>{{ wordbook.description }}</p>
+                    <p>
+                        <a href="{{ wordbook.name }}/" class="btn btn-primary" role="button">开始学习</a>
+                        <!-- <a href="#" class="btn btn-default" role="button">订阅</a> -->
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr />
+    <h2>个人单词本</h2>
+    <div class="row">
+        {% for wordbook in userWordbooks %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <!-- <img src="..." alt="..."> -->
+                <div class="caption">
+                    <h3>{{ wordbook.name }}</h3>
+                    <p>{{ wordbook.description }}</p>
+                    <p>
+                        <a href="#" class="btn btn-primary" role="button">开始学习</a>
+                        <!-- <a href="#" class="btn btn-info" role="button">修改</a> -->
+                        <a href="#" id="{{ wordbook.name }}" class="btn btn-danger btn-delete-wordbook" role="button">删除</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <!-- <img src="..." alt="..."> -->
+                <div class="caption">
+                    <h3 href="/wordbooks/new/">新建单词本</h3>
+                    <p>创建你的专属单词本</p>
+                    <p>
+                        <a href="/wordbooks/new/" class="btn btn-primary" role="button">新建</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script>
+    $(document).ready(function () {
+        $('.btn-delete-wordbook').click(function () {
+            var wordbookToDelete = $(this).attr('id')
+            $.ajax({
+                url: '/wordbooks/delete',
+                type: 'post',
+                data: {
+                    wordbook: wordbookToDelete
+                },
+                success: function (result) {
+                    window.location.reload();
+                }
+            })
+        });
+    });
+</script> {% endblock %}

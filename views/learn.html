@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1 id="wordbook">{{ wordbook }}
+        </h1>
+    </div>
+    <h2 id="word">{{ word }}
+    </h2>
+    <p class="lead">{{ meaning }}</p>
+    <button id="learned" class="btn btn-primary" type="button">我学会了</button>
+    <button id="notyet" class="btn btn-warning" type="button">我还不会</button>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script>
+    $(document).ready(function () {
+        $('#learned').click(function () {
+            $.ajax({
+                url: '/revision',
+                type: 'post',
+                data: {
+                    learned: true,
+                    wordbook: $('#wordbook').html().trim()
+                },
+                success: function (result) {
+                    window.location.reload();
+                }
+            })
+        });
+        $('#notyet').click(function () {
+            $.ajax({
+                url: '/revision',
+                type: 'post',
+                data: {
+                    word: $('#word').html().trim().toUpperCase(),
+                    wordbook: $('#wordbook').html().trim()
+                },
+                success: function (result) {
+                    window.location.reload();
+                }
+            })
+        });
+    });
+</script> {% endblock %}
