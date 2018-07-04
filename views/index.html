@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>Vocabularist
+            <small>如何让孩子三天爱上背单词</small>
+        </h1>
+    </div>
+    <h2>{{ word }}
+        <small>今日单词</small>
+    </h2>
+    <p class="lead">{{ meaning }}</p>
+    <div class="text-right">
+        <button type="button" id="next" class="btn btn-primary" onClick="window.location.reload()">下一个</button>
+    </div>
+</div>
+{% endblock %}

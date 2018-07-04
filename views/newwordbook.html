@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>新建单词本</h1>
+    </div>
+    <h2>基本信息</h2>
+    <form id="wordbook-form" class="form-group" action="/wordbooks" method="post">
+        <div class="form-group">
+            <label for="">单词本名称</label>
+            <input id="name" name="name" class="form-control" type="text" placeholder="1-20位字母或汉字">
+        </div>
+        <div class="form-group">
+            <label for="">描述</label>
+            <textarea id="description" name="description" class="form-control" rows="3" placeholder="单词本的内容与/或作用说明"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">保存</button>
+        <a href="/wordbooks/" class="btn btn-default" role="button">返回</a>
+    </form>
+</div>
+{% endblock %} {% block extra_scripts %}
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/bootstrapValidator.min.js"></script>
+<script>
+    $(function () {
+        //此处为校验的核心代码
+        $("#wordbook-form").bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                name: {
+                    validators: {
+                        notEmpty: {
+                            message: '单词本名称不能为空'
+                        },
+                        stringLength: {
+                            /*长度提示*/
+                            min: 1,
+                            max: 20,
+                            message: '单词本名称长度必须在1到20之间'
+                        }
+                    }
+                },
+                description: {
+                    validators: {
+                        notEmpty: {
+                            message: '单词本描述不能为空'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function (e) {//点击提交之后
+            // Prevent form submission
+            e.preventDefault();
+
+            // Get the form instance
+            var $form = $(e.target);
+
+            // Use Ajax to submit form data 提交至form标签中的action，result自定义
+            $.post($form.attr('action'), $form.serialize(), function (result) {
+                console.log(result)
+            });
+        });
+    });
+</script> {% endblock %}
